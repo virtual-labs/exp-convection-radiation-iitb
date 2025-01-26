@@ -8,7 +8,7 @@ function activity1() {
 
         <div class="fs-16px">
         <h5>Natural Convection and unsteady, natural convection and radiation</h5>
-        <p>Learning Objective: </p>
+        <p></p>
         </div>
 
         <button class='btn btn-info std-btn' style='position: relative; left: 50vw;' onclick='Verify_act1();' id='temp-btn-1' >Next</button>
