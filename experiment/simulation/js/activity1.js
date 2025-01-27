@@ -29,16 +29,16 @@ function Verify_act1() {
     ${btn_text}
     <div class='collapse divide' style='style='margin-top: 2vw; 'width: 80%; margin: auto;' id='tb1-box'>
 
-        <h5>A hot plate (${a1_l} x ${a1_w}) at ${a1_temp} C is kept in still air at ${a1_air_temp} C</h5>
+        <h5>A hot plate (${a1_l}m x ${a1_w}m) at ${a1_temp} &deg; C is kept in still air at ${a1_air_temp} &deg; C</h5>
 
         <p>
-        Mass of plate is ${a1_mass_of_plate} <br>
-        C<sub>p</sub> = ${a1_cp} <br>
+        Mass of plate is ${a1_mass_of_plate} kg <br>
+        C<sub>p</sub> = ${a1_cp} J/kg-&deg;C <br>
         &epsilon; = ${a1_epsilon} <br>
-        &mu; = ${a1_mu / 1e-6} x 10<sup>-6</sup> m<sup>2</sup>/s
+        &mu; = ${a1_mu / 1e-6} x 10<sup>-6</sup> m<sup>2</sup>/s <br>
         Pr = ${a1_pr} m/s<sup>2</sup> <br>
         K = ${a1_k} <br>
-        T<sub>s</sub> = ${a1_temp} C and T<sub>j</sub> = ${a1_air_temp} <br>
+        T<sub>s</sub> = ${a1_temp} &deg; C and T<sub>j</sub> = ${a1_air_temp} &deg; C <br>
         g = 9.81 m/s<sup>2</sup> <br>
         Boltzmann Constant (&sigma;) = 1.380649 x 10<sup>-23</sup> m<sup>2</sup> kg s<sup>-2</sup> K<sup>-2</sup>
 
@@ -47,7 +47,7 @@ function Verify_act1() {
         <ol type='1'>
             <li>Heat Transfer Coefficient</li>
             <li>Initial reate of cooling (only convection)</li>
-            <li>Time required to reach 80 &80C (only convection)</li>
+            <li>Time required to reach 80 &deg; C (only convection)</li>
             <li>Initial rate of cooling (convection & radiation)</li>
         </ol>
 
@@ -268,12 +268,12 @@ function sol3() {
 
         <p style='text-align: center;'> 
                 <span style='display: inline-block;' >
-                    $$ \\frac{dT}{dt} = \\frac{hA}{mC_p}(T_s - T_j) \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\text{where A = 1 x 0.5} $$
+                    $$ \\frac{dT}{dt} = \\frac{hA}{mC_p}(T_s - T_j) \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\text{where A = 1 x 0.5 x 2} $$
                 </span>
         </p>
 
          <p style='text-align: center;'> 
-                here take T<sub>s</sub> = 80 &deg; C;
+                here take T<sub>s</sub> = ${a1_temp} &deg; C;
         </p>
 
          <p style='text-align: center;'> 
@@ -294,7 +294,7 @@ function sol3() {
     calculate_first_sol();
 }
 function calculate_first_sol() {
-    first_sol = a1_h * 1.5 * (80 - a1_air_temp) / (a1_mass_of_plate * a1_cp);
+    first_sol = a1_h * 1 * (a1_temp - a1_air_temp) / (a1_mass_of_plate * a1_cp);
 }
 function verify_sol3() {
     let btn = document.getElementById('temp-btn-13');
@@ -324,19 +324,19 @@ function sol4() {
 
         <p style='text-align: center;'> 
                 <span style='display: inline-block;' >
-                    $$ Q = 80 - 20 \\ \\ \\ and \\ \\ \\ Q_o = T_s - T_j $$
+                    $$ \\theta = 80 - 20 \\ \\ \\ and \\ \\ \\ \\theta_o = T_s - T_j $$
                 </span>
         </p>
 
         <p style='text-align: center;'> 
                 <span style='display: inline-block;' >
-                    $$ \\frac{Q}{Q_o} = e^{\\frac{-hAt}{mC_p}} $$
+                    $$ \\frac{\\theta}{\\theta_o} = e^{\\frac{-hAt}{mC_p}} $$
                 </span>
         </p>
 
         <p style='text-align: center;'> 
                 <span style='display: inline-block;' >
-                    $$ t = \\frac{mC_p}{hA} ln\\left( \\frac{Q}{Q_o} \\right) $$
+                    $$ t = \\frac{mC_p}{hA} ln\\left( \\frac{\\theta}{\\theta_o} \\right) $$
                 </span>
         </p>
 
@@ -356,7 +356,7 @@ function sol4() {
     hide_all_steps();
     setTimeout(() => { show_step('tb1-st4'); }, 150);
     setTimeout(() => { MathJax.typeset(); }, 300);
-    second_sol = -a1_mass_of_plate * a1_cp * Math.log((80 - a1_air_temp) / (a1_temp - a1_air_temp)) / (a1_h * 1.5);
+    second_sol = -a1_mass_of_plate * a1_cp * Math.log((80 - a1_air_temp) / (a1_temp - a1_air_temp)) / (a1_h * 1);
 }
 function verify_sol4() {
     let btn = document.getElementById('temp-btn-14');
@@ -381,7 +381,7 @@ function sol5() {
     <div class='collapse divide' style='style='margin-top: 2vw; 'width: 80%; margin: auto;' id='tb1-st5'>
         
         <p style='text-align: center;'> 
-            Initial rate of cooling Convection & Radiation
+            Initial rate of cooling (Convection & Radiation)
         </p>
 
         <p style='text-align: center;'> 
@@ -411,7 +411,10 @@ function sol5() {
     hide_all_steps();
     setTimeout(() => { show_step('tb1-st5'); }, 150);
     setTimeout(() => { MathJax.typeset(); }, 300);
-    forth_sol = (a1_h * 1.5 * (a1_temp - a1_air_temp) / (a1_mass_of_plate * a1_cp)) + (boltzmann_contant * 1.5 * a1_epsilon * ((Math.pow(a1_temp, 4)) - (Math.pow(a1_air_temp, 4))) / (a1_mass_of_plate * a1_cp));
+    forth_sol = (a1_h * 1 * (a1_temp - a1_air_temp))
+        +
+            (boltzmann_contant * 1 * a1_epsilon * ((Math.pow((a1_temp + 273), 4)) - (Math.pow((a1_air_temp + 273), 4))));
+    forth_sol = forth_sol / (a1_mass_of_plate * a1_cp);
 }
 function verify_sol5() {
     let btn = document.getElementById('temp-btn-15');
